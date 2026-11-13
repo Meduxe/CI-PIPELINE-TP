@@ -1,28 +1,22 @@
-import pytest
-from app.user_manager import UserManager
+class UserManager:
+    def __init__(self):
+        self.users = []
+
+    def add_user(self, username):
+        if not username:
+            raise ValueError("Le nom d'utilisateur est obligatoire")
+        if username in self.users:
+            raise ValueError("Utilisateur déjà existant")
+        self.users.append(username)
+
+    def remove_user(self, username):
+        if username not in self.users:
+            raise ValueError("Utilisateur introuvable")
+        self.users.remove(username)
+
+    def count_users(self):
+        return len(self.users)
 
 
-def test_add_user():
-    manager = UserManager()
-    manager.add_user("adam")
-    assert manager.count_users() == 1
-
-
-def test_add_existing_user():
-    manager = UserManager()
-    manager.add_user("adam")
-    with pytest.raises(ValueError):
-        manager.add_user("adam")
-
-
-def test_remove_user():
-    manager = UserManager()
-    manager.add_user("youssef")
-    manager.remove_user("youssef")
-    assert manager.count_users() == 0
-
-
-def test_remove_unknown_user():
-    manager = UserManager()
-    with pytest.raises(ValueError):
-        manager.remove_user("saad")
+def count_total_users(users):
+    return len(users)
